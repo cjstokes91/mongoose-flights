@@ -1,0 +1,18 @@
+<table>
+    <thead>
+      <tr>
+        <th>Airline</th>
+        <th>Flight Number</th>
+        <th>Departs</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% flights.reviews.forEach(function(f) { %>
+        <tr>
+          <td><%= r.createdAt.toLocaleDateString() %></td>
+          <td><%= r.content %></td>
+          <td><%= r.rating %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>

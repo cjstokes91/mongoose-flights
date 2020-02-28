@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/style">
+</head>
+    <body>
+        <div>
+            <h1>Flights</h1>
+            <ul>
+                <% flights.forEach(function(f, idx) { %>
+                <li>
+                    <a href="/flights/<%= f._id %>">DETAILS</a>
+                    <%= f.flightNo%>
+                    <%= f.departs%>
+                </li>
+    
+                <%  }); %>
+            </ul>
+            <a href="/flights/new">Add New Flights</a>
+        </div>
+</body>
+
+</html>
