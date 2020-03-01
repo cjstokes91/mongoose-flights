@@ -17,6 +17,7 @@ function index(req, res) {
 function newFlight(req, res) { 
     res.render('flights/new', {title: 'Add New Flight' }); 
 }
+
 function create(req, res) { 
     const flight = new Flight(req.body);
 
@@ -28,19 +29,11 @@ function create(req, res) {
             res.redirect('/flights')
         }
     });
-
-
-// function show(req, res) { 
-//     res.render('/:id/show', flights)
-//     Flight.findById(req.params.id) 
-//     flight. Flight.getOne(req.params.id);
-// }
-// }
-
+}
 
 function show(req, res) {
-    res.render('flights/show', {
-        flight: Flight.getOne(req.params.id),
-      });
-    }
-}
+    Flight.findById(req.params.id, function(err, flight) {
+        // console.log(flights)
+        res.render('flights/show', { flight })
+    });
+  }

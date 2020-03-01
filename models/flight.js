@@ -37,6 +37,7 @@ const flightSchema = new Schema({
     },
     departs: {
         type: Date,
+        default: new Date(), 
         required: true,
         minYear: '2020'
 
@@ -47,6 +48,8 @@ const flightSchema = new Schema({
 
     },
     destinations: [destinationSchema]
+}, {
+
 })
 
 
