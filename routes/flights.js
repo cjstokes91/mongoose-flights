@@ -5,8 +5,14 @@ const flightsCtrl = require('../controllers/flights');
 /* GET users listing. */
 router.get('/', flightsCtrl.index);
 router.get('/new', flightsCtrl.new);
-router.get('/:id', flightsCtrl.show);    
-router.post('/', flightsCtrl.create); 
+router.get('/:id', flightsCtrl.show);
+router.post('/', flightsCtrl.create);
+router.delete('/:id', flightsCtrl.delete);
+
+
+router.get('/', function(req,res, next){
+    res.render('respond with a resource')
+})
  
 
 

@@ -1,68 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <section id="show-page">
-    <div>Airline: </div>
-    <div><%= flight.airline%></div>
-    <div>Flight Number: </div>
-    <div><%= flight.flightNo %></div>
-    <div>Departs: </div>
-    <div><%= flight.departs %></div>
-  </section>
-  
-  
-  <br><br><h2>Destinations</h2>
- <form id="add-destination-form" method="POST"
-   action="/flight/<%= flight._id %>/destinations">
-   <label>Destination:</label>
-   <select name="airport">
-     <option value="AUS">AUS</option>
-     <option value="DFW">DFW</option>
-     <option value="DEN">DEN</option>
-     <option value="LAX">LAX</option>
-     <option value="SAN">SAN</option>
-   </select>
- 
- 
-  <label>Arrival 
-    <input type="datetime-local"  name="arrival">
-  </label> 
-  <input type="submit" value="Add Destination">
-  <% if (flight.destinations.length) { %>
-    <table>
-      <thead>
-        <tr>
-          <th>Depart From</th>
-          <th>Destination</th>
-          <th>Arrival</th>
-        </tr>
-      </thead>
-       <tbody> 
-        <% let total = 0 %>
-        <% flight.destinations.forEach(function(d) { %>
-          <tr>
-        
-            <td><%= d.airport %></td>
-            <td><%= d.arrival %></td>
-          </tr>
-        <% }); %>
-        <tr>
-          <td colspan="2"></td>
-          <td><strong><%= (total / flight.destinations.length).toFixed(1) %></strong></td>
-        </tr>
-      </tbody>
-    </table>
-  <% } else { %>
-    <h5>No Destinations Yet</h5>
-  <% } %>
-  </form> 
-  
-</body> 
-</html>
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Details</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+    <h1><%= flightHeader %></h1>
+    <form action="/flights/<%= flight._id %>?_method=DELETE" class="delete-form" method="POST">
+        <button type="submit">Delete This Flight</button>
+    </form><br>
+    <section>
+        <div>Flight: <%= `${flight.airline} ${flight.flightNo}`%></div>
+        <div>Airport: <%= flight.airport %></span></div>
+        <div>Departing Airport: <%=flight.airport%>, Time: <%=flight.departs%>
+        </div><br>
+        <form action="/flight/<%= flight._id %>/destinations" method="POST">
+            <label>Destination Airport:
+                <select name="airport">
+                    <option value="AUS">AUS</option>
+                    <option value="DFW">DW</option>
+                    <option value="DEN">DEN</option>
+                    <option value="LAX">LAX</option>
+                    <option value="SAN">SAN</option>
+                </select>
+            </label><br>
+            <label>Arrival Date:
+                <input type="datetime-local" name="arrival">
+            </label><br>
+            <input type="submit" value="Add Destination">
+        </form>
+        <br><br>
+    </section>
+    <section class="destination-display">
+        <% if (flight.destinations.length) { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>Destination</th>
+                    <th>Arrival Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% flight.destinations.forEach(e) => { %>
+                <tr>
+                    <td><%= e.airport %></td>
+                    <td><%= String(e.arrival).substr(0, 24) %> <%= String(e.arrival).substr(34, 23)%></td>
+                </tr>
+            </tbody>
+            <% }); %>
+        </table>
+        <% } else { %>
+        <h5>No Destinations Added</h5>
+        <% } %>
+    </section><br>
+    <div>TICKETS</div>
+    <form action="/flights/<% flight._id %>/tickets" method="GET">
+        <button type="submit">New Ticket</button>
+    </form>
+    <table>
+        <% flight.tickets.forEach(t => { %>
+        <tr>
+            <td><%= t.seat %></td>
+        </tr>
+        <% }); %>
+    </table><br>
+    <a href="/flights">Back To Directory</a>
+</body>
+
+</html>
 
